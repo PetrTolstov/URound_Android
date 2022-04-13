@@ -1,0 +1,9 @@
+query GetAllUsers {
+    getAllUsers {
+        _id
+        email
+        firstName
+        lastName
+        hashedPassword
+    }
+}

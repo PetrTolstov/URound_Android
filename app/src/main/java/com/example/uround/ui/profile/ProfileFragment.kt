@@ -1,4 +1,4 @@
-package com.example.uround.ui.notifications
+package com.example.uround.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProvider
-import com.example.uround.databinding.FragmentNotificationsBinding
+import com.example.uround.databinding.FragmentProfileBinding
 
-class NotificationsFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentProfileBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,13 +24,13 @@ class NotificationsFragment : Fragment() {
     ): View {
         val notificationsViewModel =
             ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-                NotificationsViewModel::class.java
+                ProfileViewModel::class.java
             )
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textProfile
         notificationsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

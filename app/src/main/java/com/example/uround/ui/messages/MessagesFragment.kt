@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProvider
-import com.example.uround.databinding.FragmentMapBinding
+import com.example.uround.databinding.FragmentMessagesBinding
 
-class MapFragment : Fragment() {
+class MessagesFragment : Fragment() {
 
-    private var _binding: FragmentMapBinding? = null
+    private var _binding: FragmentMessagesBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,12 +26,12 @@ class MapFragment : Fragment() {
             ViewModelProvider(
                 this,
                 ViewModelProvider.NewInstanceFactory()
-            ).get(MapViewModel::class.java)
+            ).get(MessagesViewModel::class.java)
 
-        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        _binding = FragmentMessagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textMap
+        val textView: TextView = binding.textMessages
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

@@ -1,4 +1,4 @@
-package com.example.uround.ui.dashboard
+package com.example.uround.ui.map
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProvider
-import com.example.uround.databinding.FragmentDashboardBinding
+import com.example.uround.databinding.FragmentMapBinding
 
-class DashboardFragment : Fragment() {
+class MapFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentMapBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,12 +26,12 @@ class DashboardFragment : Fragment() {
             ViewModelProvider(
                 this,
                 ViewModelProvider.NewInstanceFactory()
-            ).get(DashboardViewModel::class.java)
+            ).get(MessagesViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
+        val textView: TextView = binding.textMap
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }

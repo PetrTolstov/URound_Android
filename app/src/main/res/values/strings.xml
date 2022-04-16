@@ -4,4 +4,6 @@
     <string name="title_map">Map</string>
     <string name="title_messages">Messages</string>
     <string name="tittle_profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

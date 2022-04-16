@@ -1,4 +1,4 @@
-package com.example.uround.ui.map
+package com.example.uround.ui.messages
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.support.v4.app.Fragment
 import android.arch.lifecycle.ViewModelProvider
 import com.example.uround.databinding.FragmentMessagesBinding
+
 
 class MessagesFragment : Fragment() {
 

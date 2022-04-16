@@ -1,13 +1,22 @@
 package com.example.uround
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.apollographql.apollo3.ApolloClient
+import com.example.GetAllUsersQuery
+import com.example.uround.auth.Auth
 import com.example.uround.databinding.ActivityMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,5 +40,24 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        GlobalScope.launch {
+            printGraphQLData()
+        }
     }
+
+
+
+    suspend fun printGraphQLData() {
+        val apolloClient = ApolloClient.Builder()
+            .serverUrl("https://uround-server.herokuapp.com")
+            .build()
+
+        val response = apolloClient.query(GetAllUsersQuery()).execute()
+        println(response.data!!.getAllUsers)
+
+
+    }
+
+
 }

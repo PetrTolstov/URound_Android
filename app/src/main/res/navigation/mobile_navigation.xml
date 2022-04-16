@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.example.uround.ui.map.MessagesFragment"
+        android:name="com.example.uround.ui.map.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_messages"
-        android:name="com.example.uround.ui.map.MessagesFragment"
+        android:name="com.example.uround.ui.messages.MessagesFragment"
         android:label="@string/title_messages"
         tools:layout="@layout/fragment_map" />
     <fragment

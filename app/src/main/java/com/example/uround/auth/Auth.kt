@@ -2,6 +2,7 @@ package com.example.uround.auth
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -10,11 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.*
 import com.apollographql.apollo3.ApolloClient
 import com.example.LoginQuery
 import com.example.uround.MainActivity
 import com.example.uround.databinding.AuthBinding
+import com.example.uround.registr.Registr
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -23,43 +25,47 @@ class Auth : AppCompatActivity() {
 
     private lateinit var binding: AuthBinding
 
+    private lateinit var loginInput : EditText
+    private lateinit var passwordInput : EditText
+    private lateinit var loginBut : Button
+    private lateinit var logo  : ImageView
+    private lateinit var progressBar : ProgressBar
+    private lateinit var toRegistrBut : Button
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide();
         binding = AuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val loginInput = binding.loginEditText
-        val passwordInput = binding.passwordEditText
-        val loginBut = binding.loginBut
-        val logo = binding.logoImageView
-        val progressBar = binding.progressBar
-
-        loginInput.visibility = View.INVISIBLE
-        passwordInput.visibility = View.INVISIBLE
-        loginBut.visibility = View.INVISIBLE
-
-        val sps = getSharedPreferences("login", MODE_PRIVATE)
+        val sps: SharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
         val login = sps.getString("login", null)
         val password = sps.getString("password", null)
-        println(login)
+
+        loginInput = binding.loginEditText
+        passwordInput = binding.passwordEditText
+        loginBut = binding.loginBut
+        logo = binding.logoImageView
+        progressBar = binding.progressBar
+        toRegistrBut = binding.toRegistrBut
+        toInvisible()
+
         if(isOnline(applicationContext)){
             GlobalScope.launch {
                 if (login is String && password is String) {
                     val (isLogged, errorMsg) = isLogin(login, password)
-                    if (isLogged){
+
+                    if (false){
                         val msgIntent = Intent(this@Auth, MainActivity::class.java)
                         startActivity(msgIntent)
                         finishAfterTransition()
                     }else{
-                        loginInput.visibility = View.VISIBLE
-                        passwordInput.visibility = View.VISIBLE
-                        loginBut.visibility = View.VISIBLE
-                        logo.visibility = View.INVISIBLE
-                        progressBar.visibility = View.INVISIBLE
-
 
                         this@Auth.runOnUiThread(java.lang.Runnable {
+
+                            toVisible()
+
                             Toast.makeText(
                                 this@Auth,
                                 errorMsg,
@@ -72,18 +78,22 @@ class Auth : AppCompatActivity() {
                         })
                     }
                 }else{
-                    loginInput.visibility = View.VISIBLE
-                    passwordInput.visibility = View.VISIBLE
-                    loginBut.visibility = View.VISIBLE
-                    logo.visibility = View.INVISIBLE
-                    progressBar.visibility = View.INVISIBLE
+                    this@Auth.runOnUiThread(java.lang.Runnable {
+                        toVisible()
+                    })
                 }
         }}else {
             Toast.makeText(this@Auth, "No Internet", Toast.LENGTH_LONG).show()
         }
 
 
-        binding.loginBut.setOnClickListener() {
+        binding.toRegistrBut.setOnClickListener {
+            val msgIntent = Intent(this@Auth, Registr::class.java)
+            startActivity(msgIntent)
+            finishAfterTransition()
+        }
+
+        binding.loginBut.setOnClickListener {
             if (isOnline(applicationContext)) {
                 var toastMessage = ""
 
@@ -171,5 +181,25 @@ class Auth : AppCompatActivity() {
             }
         }
         return false
+    }
+
+    fun toVisible(){
+        loginInput.visibility = View.VISIBLE
+        passwordInput.visibility = View.VISIBLE
+        loginBut.visibility = View.VISIBLE
+        toRegistrBut.visibility = View.VISIBLE
+
+        logo.visibility = View.INVISIBLE
+        progressBar.visibility = View.INVISIBLE
+    }
+
+    fun toInvisible(){
+        loginInput.visibility = View.INVISIBLE
+        passwordInput.visibility = View.INVISIBLE
+        loginBut.visibility = View.INVISIBLE
+        toRegistrBut.visibility = View.INVISIBLE
+
+        logo.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 }

@@ -1,0 +1,15 @@
+mutation Registr($user: UserInput!) {
+    addUser(User: $user) {
+        message {
+            isError
+            description
+        }
+        userInfo {
+            _id
+            email
+            firstName
+            lastName
+            hashedPassword
+        }
+    }
+}

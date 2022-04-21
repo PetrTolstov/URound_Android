@@ -7,11 +7,11 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.apollographql.apollo3.ApolloClient
 import com.example.LoginQuery
 import com.example.uround.MainActivity
@@ -43,6 +43,7 @@ class Auth : AppCompatActivity() {
         val login = sps.getString("login", null)
         val password = sps.getString("password", null)
 
+
         loginInput = binding.loginEditText
         passwordInput = binding.passwordEditText
         loginBut = binding.loginBut
@@ -54,11 +55,23 @@ class Auth : AppCompatActivity() {
         if(isOnline(applicationContext)){
             GlobalScope.launch {
                 if (login is String && password is String) {
-                    val (isLogged, errorMsg) = isLogin(login, password)
+                    val response = isLogin(login, password)
 
-                    if (false){
+                    if (response.isLoggedIn){
+                        val b = Bundle()
+                        b.putString("id", response.userInfo!!._id)
+                        b.putString("email", response.userInfo.email)
+                        b.putString("password", password)
+                        b.putString("hashedPassword", response.userInfo.hashedPassword,)
+                        b.putString("firstName", response.userInfo.firstName!!)
+                        b.putString("lastName",  response.userInfo.firstName!!)
+
                         val msgIntent = Intent(this@Auth, MainActivity::class.java)
+
+                        msgIntent.putExtras(b)
+                        msgIntent.putExtra(MainActivity.USER_L, b)
                         startActivity(msgIntent)
+
                         finishAfterTransition()
                     }else{
 
@@ -68,11 +81,11 @@ class Auth : AppCompatActivity() {
 
                             Toast.makeText(
                                 this@Auth,
-                                errorMsg,
+                                response.message.description,
                                 Toast.LENGTH_LONG
                             ).show()
                             passwordInput.setText("")
-                            if(errorMsg == "No such user"){
+                            if(response.message.description == "No such user"){
                                 loginInput.setText("")
                             }
                         })
@@ -115,29 +128,44 @@ class Auth : AppCompatActivity() {
                     Toast.makeText(this@Auth, toastMessage, Toast.LENGTH_LONG).show()
 
                 } else {
+                    toInvisible()
                     GlobalScope.launch {
                         val loginStr = loginInput.text.toString()
                         val passwordStr = passwordInput.text.toString()
 
-                        val (isLogged, errorMsg) = isLogin(loginStr, passwordStr)
-                        if (isLogged) {
+                        val response = isLogin(loginStr, passwordStr)
+
+                        if (response.isLoggedIn) {
                             val editor = sps.edit()
                             editor.putString("login", loginStr)
                             editor.putString("password", passwordStr)
                             editor.commit()
 
+                            val b = Bundle()
+                            b.putString("id", response.userInfo!!._id)
+                            b.putString("email", response.userInfo.email)
+                            b.putString("password", passwordStr)
+                            b.putString("hashedPassword", response.userInfo.hashedPassword,)
+                            b.putString("firstName", response.userInfo.firstName!!)
+                            b.putString("lastName",  response.userInfo.lastName!!)
+
                             val msgIntent = Intent(this@Auth, MainActivity::class.java)
+
+                            msgIntent.putExtras(b)
+                            msgIntent.putExtra(MainActivity.USER_L, b)
                             startActivity(msgIntent)
+
                             finishAfterTransition()
                         } else {
                             this@Auth.runOnUiThread(java.lang.Runnable {
+                                toVisible()
                                 Toast.makeText(
                                     this@Auth,
-                                    errorMsg,
+                                    response.message.description,
                                     Toast.LENGTH_LONG
                                 ).show()
                                 passwordInput.setText("")
-                                if(errorMsg == "No such user"){
+                                if(response.message.description == "No such user"){
                                     loginInput.setText("")
                                 }
                             })
@@ -152,14 +180,14 @@ class Auth : AppCompatActivity() {
 
     }
 
-    suspend fun isLogin(login: String, password: String): Pair<Boolean, String?> {
+    suspend fun isLogin(login: String, password: String): LoginQuery.Login {
             val apolloClient = ApolloClient.Builder()
                 .serverUrl("https://uround-server.herokuapp.com")
                 .build()
 
             val response = apolloClient.query(LoginQuery(login, password)).execute()
 
-            return Pair(response.data!!.login.isLoggedIn, response.data!!.login.message.description)
+            return  response.data!!.login
     }
 
 
@@ -189,8 +217,8 @@ class Auth : AppCompatActivity() {
         loginBut.visibility = View.VISIBLE
         toRegistrBut.visibility = View.VISIBLE
 
-        logo.visibility = View.INVISIBLE
-        progressBar.visibility = View.INVISIBLE
+        logo.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
     fun toInvisible(){

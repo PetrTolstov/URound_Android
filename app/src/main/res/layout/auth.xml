@@ -15,7 +15,7 @@
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/login"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"

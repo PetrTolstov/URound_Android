@@ -11,4 +11,5 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="registr">Registr</string>
+    <string name="log_out">Log out</string>
 </resources>

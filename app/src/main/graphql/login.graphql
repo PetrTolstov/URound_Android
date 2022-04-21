@@ -5,5 +5,12 @@ query Login($email: String!, $password: String!) {
             description
         }
         isLoggedIn
+        userInfo {
+            _id
+            email
+            firstName
+            lastName
+            hashedPassword
+        }
     }
 }

@@ -12,10 +12,10 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.api.Optional
 import com.example.RegistrMutation
 import com.example.type.UserInput
 import com.example.uround.MainActivity
+import com.example.uround.auth.Auth
 import com.example.uround.databinding.RegistrBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -53,7 +53,7 @@ class Registr : AppCompatActivity() {
         val listFields : List<EditText> = listOf<EditText>(emailInput, passwordInput, passwordRepeatInput, firstName, lastName)
 
         binding.toLoginBut.setOnClickListener {
-            val msgIntent = Intent(this@Registr, Registr::class.java)
+            val msgIntent = Intent(this@Registr, Auth::class.java)
             startActivity(msgIntent)
             finishAfterTransition()
         }
@@ -69,22 +69,32 @@ class Registr : AppCompatActivity() {
 
                         val user : UserInput = UserInput(emailStr, passwordStr, firstNameStr, lastNameStr)
 
-                        val (isLogged, errorMsg) = isLogin(user)
+                        val response = isLogin(user)
 
-                        if (isLogged) {
+                        if (!response.message.isError) {
                             val editor = sps.edit()
                             editor.putString("login", emailStr)
                             editor.putString("password", passwordStr)
                             editor.commit()
 
+                            val b = Bundle()
+                            b.putString("id", response.userInfo!!._id)
+                            b.putString("email", response.userInfo.email)
+                            b.putString("password", passwordStr)
+                            b.putString("hashedPassword", response.userInfo.hashedPassword,)
+                            b.putString("firstName", response.userInfo.firstName!!)
+                            b.putString("lastName",  response.userInfo.lastName!!)
+
                             val msgIntent = Intent(this@Registr, MainActivity::class.java)
+
+                            msgIntent.putExtras(b)
+                            msgIntent.putExtra(MainActivity.USER_L, b)
                             startActivity(msgIntent)
-                            finishAfterTransition()
                         } else {
                             this@Registr.runOnUiThread(java.lang.Runnable {
                                 Toast.makeText(
                                     this@Registr,
-                                    errorMsg,
+                                    response.message.description,
                                     Toast.LENGTH_LONG
                                 ).show()
                                 passwordInput.setText("")
@@ -133,7 +143,7 @@ class Registr : AppCompatActivity() {
         if (!TextUtils.isEmpty(toastMessage)){
             Toast.makeText(this@Registr, toastMessage, Toast.LENGTH_LONG).show()
             return false
-        } else if(listFields[1].text != listFields[2].text){
+        } else if(listFields[1].text.toString() != listFields[2].text.toString()){
             Toast.makeText(this@Registr, "Passwords doesn't match", Toast.LENGTH_LONG).show()
             listFields[1].setText("")
             listFields[2].setText("")
@@ -144,14 +154,14 @@ class Registr : AppCompatActivity() {
         return true
     }
 
-    suspend fun isLogin(user : UserInput): Pair<Boolean, String?> {
+    suspend fun isLogin(user : UserInput): RegistrMutation.AddUser {
         val apolloClient = ApolloClient.Builder()
             .serverUrl("https://uround-server.herokuapp.com")
             .build()
 
         val response = apolloClient.mutation(RegistrMutation(user)).execute()
 
-        return Pair(!response.data!!.addUser.message.isError, response.data!!.addUser.message.description)
+        return response.data!!.addUser
     }
 
 

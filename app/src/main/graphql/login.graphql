@@ -1,16 +1,19 @@
-query Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+query Login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+        isLoggedIn
         message {
             isError
             description
         }
-        isLoggedIn
         userInfo {
             _id
+            username
             email
             firstName
             lastName
             hashedPassword
+            profileImage
         }
+
     }
 }

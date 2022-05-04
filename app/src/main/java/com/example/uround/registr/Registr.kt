@@ -26,6 +26,7 @@ class Registr : AppCompatActivity() {
 
     private lateinit var binding: RegistrBinding
 
+    private lateinit var usernameInput: EditText
     private lateinit var emailInput : EditText
     private lateinit var passwordInput : EditText
     private lateinit var passwordRepeatInput : EditText
@@ -40,6 +41,7 @@ class Registr : AppCompatActivity() {
             binding = RegistrBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
+        usernameInput = binding.usernameEditText
         emailInput = binding.loginEditText
         passwordInput = binding.passwordEditText
         passwordRepeatInput = binding.passwordRepeatEditText
@@ -50,7 +52,7 @@ class Registr : AppCompatActivity() {
 
         val sps: SharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
 
-        val listFields : List<EditText> = listOf<EditText>(emailInput, passwordInput, passwordRepeatInput, firstName, lastName)
+        val listFields : List<EditText> = listOf(usernameInput,emailInput, passwordInput, passwordRepeatInput, firstName, lastName)
 
         binding.toLoginBut.setOnClickListener {
             val msgIntent = Intent(this@Registr, Auth::class.java)
@@ -62,23 +64,25 @@ class Registr : AppCompatActivity() {
             if (isOnline(applicationContext)) {
                 if (checkFields(listFields)) {
                     GlobalScope.launch {
+                        val username = usernameInput.text.toString()
                         val emailStr = emailInput.text.toString()
                         val passwordStr = passwordInput.text.toString()
                         val firstNameStr = firstName.text.toString()
                         val lastNameStr = lastName.text.toString()
 
-                        val user : UserInput = UserInput(emailStr, passwordStr, firstNameStr, lastNameStr)
+                        val user : UserInput = UserInput(username, emailStr, passwordStr, firstNameStr, lastNameStr)
 
                         val response = isLogin(user)
 
                         if (!response.message.isError) {
                             val editor = sps.edit()
-                            editor.putString("login", emailStr)
+                            editor.putString("login", username)
                             editor.putString("password", passwordStr)
                             editor.commit()
 
                             val b = Bundle()
                             b.putString("id", response.userInfo!!._id)
+                            b.putString("username", response.userInfo.username)
                             b.putString("email", response.userInfo.email)
                             b.putString("password", passwordStr)
                             b.putString("hashedPassword", response.userInfo.hashedPassword,)
@@ -133,7 +137,7 @@ class Registr : AppCompatActivity() {
         var toastMessage = ""
         for (field in listFields){
             if(TextUtils.isEmpty(field.text)){
-                toastMessage += "Please write your " + field.getHint() + " \n"
+                toastMessage += "Please write your " + field.hint + " \n"
                 field.setHintTextColor(Color.RED)
             }else{
                 field.setHintTextColor(Color.LTGRAY)
@@ -143,12 +147,12 @@ class Registr : AppCompatActivity() {
         if (!TextUtils.isEmpty(toastMessage)){
             Toast.makeText(this@Registr, toastMessage, Toast.LENGTH_LONG).show()
             return false
-        } else if(listFields[1].text.toString() != listFields[2].text.toString()){
+        } else if(listFields[2].text.toString() != listFields[3].text.toString()){
             Toast.makeText(this@Registr, "Passwords doesn't match", Toast.LENGTH_LONG).show()
-            listFields[1].setText("")
             listFields[2].setText("")
-            listFields[1].setHintTextColor(Color.RED)
+            listFields[3].setText("")
             listFields[2].setHintTextColor(Color.RED)
+            listFields[3].setHintTextColor(Color.RED)
             return false
         }
         return true

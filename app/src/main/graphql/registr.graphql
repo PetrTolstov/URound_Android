@@ -6,6 +6,7 @@ mutation Registr($user: UserInput!) {
         }
         userInfo {
             _id
+            username
             email
             firstName
             lastName

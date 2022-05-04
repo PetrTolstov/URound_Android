@@ -60,11 +60,12 @@ class Auth : AppCompatActivity() {
                     if (response.isLoggedIn){
                         val b = Bundle()
                         b.putString("id", response.userInfo!!._id)
+                        b.putString("username", response.userInfo.username)
                         b.putString("email", response.userInfo.email)
                         b.putString("password", password)
                         b.putString("hashedPassword", response.userInfo.hashedPassword,)
                         b.putString("firstName", response.userInfo.firstName!!)
-                        b.putString("lastName",  response.userInfo.firstName!!)
+                        b.putString("lastName",  response.userInfo.lastName!!)
 
                         val msgIntent = Intent(this@Auth, MainActivity::class.java)
 
@@ -143,6 +144,7 @@ class Auth : AppCompatActivity() {
 
                             val b = Bundle()
                             b.putString("id", response.userInfo!!._id)
+                            b.putString("username", response.userInfo.username)
                             b.putString("email", response.userInfo.email)
                             b.putString("password", passwordStr)
                             b.putString("hashedPassword", response.userInfo.hashedPassword,)

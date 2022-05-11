@@ -775,7 +775,7 @@
             "deprecationReason": null
           },
           {
-            "name": "Date",
+            "name": "date",
             "description": null,
             "args": [],
             "type": {
@@ -1104,7 +1104,7 @@
             "defaultValue": null
           },
           {
-            "name": "Date",
+            "name": "date",
             "description": null,
             "type": {
               "kind": "NON_NULL",

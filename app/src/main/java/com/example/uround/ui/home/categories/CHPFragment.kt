@@ -1,25 +1,22 @@
-package com.example.uround.ui.home
+package com.example.uround.ui.home.categories
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-
-
-import androidx.navigation.ui.setupWithNavController
-import com.example.uround.R
+import com.example.uround.MainActivity
+import com.example.uround.databinding.FragmentChpBinding
 import com.example.uround.databinding.FragmentHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.uround.ui.home.HomeViewModel
 
-class HomeFragment : Fragment() {
+class CHPFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentChpBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -36,13 +33,10 @@ class HomeFragment : Fragment() {
                 ViewModelProvider.NewInstanceFactory()
             ).get(HomeViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentChpBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(root.findViewById(R.id.nav_host_fragment_categories))
-
-        navView.setupWithNavController(navController)
+        println("\n\n\\n\n\n\nn\n\n\n\n\n\n")
 
         return root
     }
@@ -51,6 +45,4 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

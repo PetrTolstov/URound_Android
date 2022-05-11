@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val sps: SharedPreferences = activity!!.getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
+        val sps: SharedPreferences = requireActivity().getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
 
         val textView: TextView = binding.textProfile
 

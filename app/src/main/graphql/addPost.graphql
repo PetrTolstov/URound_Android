@@ -1,0 +1,8 @@
+mutation addPost($newPost: createPostInput!, $user: UserAuthInput!) {
+    createPost(newPost: $newPost, User: $user) {
+        message {
+            description
+            isError
+        }
+    }
+}

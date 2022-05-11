@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_allnews"
+        android:title="@string/all_news" />
+
+    <item
+        android:id="@+id/navigation_IdaVirumaa"
+        android:title="@string/ida_virumaa" />
+
+    <item
+        android:id="@+id/navigation_Tallin"
+        android:title="@string/tallinn" />
+    <item
+        android:id="@+id/navigation_CHP"
+        android:title="@string/chp" />
+
+</menu>

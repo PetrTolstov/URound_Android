@@ -13,4 +13,10 @@
     <string name="registr">Registr</string>
     <string name="log_out">Log out</string>
     <string name="username">Username</string>
+    <string name="ida_virumaa">Ida-Virumaa</string>
+    <string name="tallinn">Tallinn</string>
+    <string name="all_news">All news</string>
+    <string name="chp">CHP</string>
+
+
 </resources>

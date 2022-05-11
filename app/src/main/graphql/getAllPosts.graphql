@@ -1,0 +1,22 @@
+query getAllPosts($currentLength: Int!, $user: UserAuthInput!) {
+    getAllPosts(currentLength: $currentLength, User: $user) {
+        message {
+            description
+            isError
+        }
+        list {
+            _id
+            categories
+            title
+            shortText
+            fullText
+            images
+            videos
+            date
+            owner {
+                username
+            }
+            href
+        }
+    }
+}

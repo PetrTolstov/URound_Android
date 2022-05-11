@@ -22,11 +22,17 @@ class MainActivity : AppCompatActivity() {
         lateinit var USER_INFO : Bundle
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val b = intent.extras
+        if (b != null) {
+            USER_INFO = b
+        }
 
         val navView: BottomNavigationView = binding.navView
 
@@ -41,10 +47,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val b = intent.extras
-        if (b != null) {
-            USER_INFO = b
-           }
+
 
         GlobalScope.launch {
             printGraphQLData()

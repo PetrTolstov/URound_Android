@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/categories_navigation"
+    app:startDestination="@id/navigation_allnews">
+
+    <fragment
+        android:id="@+id/navigation_allnews"
+        android:name="com.example.uround.ui.home.categories.AllNewsFragment"
+        android:label="@string/all_news"
+        tools:layout="@layout/fragment_allnews" />
+
+    <fragment
+        android:id="@+id/navigation_IdaVirumaa"
+        android:name="com.example.uround.ui.home.categories.IdaVirumaaFragment"
+        android:label="@string/ida_virumaa"
+        tools:layout="@layout/fragment_idavirumaa" />
+
+    <fragment
+        android:id="@+id/navigation_Tallin"
+        android:name="com.example.uround.ui.home.categories.TallinnFragment"
+        android:label="@string/tallinn"
+        tools:layout="@layout/fragment_tallinn" />
+    <fragment
+        android:id="@+id/navigation_CHP"
+        android:name="com.example.uround.ui.home.categories.CHPFragment"
+        android:label="@string/chp"
+        tools:layout="@layout/fragment_chp" />
+</navigation>

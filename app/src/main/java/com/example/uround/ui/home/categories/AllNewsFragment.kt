@@ -81,10 +81,10 @@ class AllNewsFragment : Fragment() {
                     postList.add(i)
                 }
             }
-
-            recyclerView.adapter!!.notifyItemInserted(lastItem + 1)
-            recyclerView.scrollToPosition(lastItem + 4)
-
+            activity?.runOnUiThread(java.lang.Runnable {
+                recyclerView.adapter!!.notifyItemInserted(lastItem + 1)
+                recyclerView.scrollToPosition(lastItem + 1)
+            })
 
 
         } else {
@@ -111,7 +111,7 @@ class AllNewsFragment : Fragment() {
                     if (!recyclerView.canScrollVertically(1)) {
 
                         GlobalScope.launch {
-                            println("HZ")
+                            renderPosts(getPosts(), root )
                         }
                         println("last")
                     }

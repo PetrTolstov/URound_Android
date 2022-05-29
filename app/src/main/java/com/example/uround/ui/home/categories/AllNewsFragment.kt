@@ -37,11 +37,11 @@ class AllNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel =
+        val AllNewsViewModel =
             ViewModelProvider(
                 this,
                 ViewModelProvider.NewInstanceFactory()
-            ).get(HomeViewModel::class.java)
+            ).get(AllNewsModelView::class.java)
 
         _binding = FragmentAllnewsBinding.inflate(inflater, container, false)
         val root: View = binding.root

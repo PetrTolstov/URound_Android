@@ -5,8 +5,10 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -27,6 +29,7 @@ class AllNewsAdapter(private val posts: MutableList<GetAllPostsQuery.List>, priv
         val title: TextView = itemView.findViewById(R.id.titleAllNewsItem)
         val smalText: TextView = itemView.findViewById(R.id.smallTextAllNewsItem)
         val imagePr: ImageView = itemView.findViewById(R.id.imageView)
+        val seeMore: Button = itemView.findViewById(R.id.seeMore)
         //var ConstraintLayout = itemView.findViewById<ConstraintLayout>(R.id.allnewitemconstwraintlayout)
 
     }
@@ -73,35 +76,46 @@ class AllNewsAdapter(private val posts: MutableList<GetAllPostsQuery.List>, priv
         holder.dateTextView.text = posts[position].date.subSequence(3, 15)
         holder.smalText.text = posts[position].shortText
 
+        holder.seeMore.setOnClickListener {
+            val myDialogFragment = FullPost(posts[position])
+            val manager = (context as FragmentActivity).supportFragmentManager
+            myDialogFragment.show(manager, "myDialog")
+        }
 
-        Glide.with(context!!)
-            .load(posts[position].images?.get(0))
-            .skipMemoryCache(true)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .placeholder(R.drawable.ic_points_sized)
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
 
-                    return false
-                }
+        if (posts[position].images?.isNotEmpty() == true) {
+            println(posts[position].images)
+            Glide.with(context!!)
+                .load(posts[position].images?.get(0))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.ic_points_sized)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
+                        return false
+                    }
 
-                    return false
-                }
-            })
-            .into(holder.imagePr)
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+
+                        return false
+                    }
+                })
+                .into(holder.imagePr)
+        }else{
+            holder.imagePr.visibility = View.GONE
+        }
 
     }
 

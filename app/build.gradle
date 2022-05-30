@@ -1,5 +1,6 @@
 
 plugins {
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id("com.apollographql.apollo3").version("3.2.1")
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -45,7 +46,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0-rc02'
     implementation 'androidx.navigation:navigation-ui-ktx:2.0.0-rc02'
     implementation 'com.google.android.material:material:1.0.0'
+
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.fragment:fragment:1.4.1'
     testImplementation 'junit:junit:4.13.2'

@@ -29,7 +29,7 @@ class AllNewsAdapter(private val posts: MutableList<GetAllPostsQuery.List>, priv
         val title: TextView = itemView.findViewById(R.id.titleAllNewsItem)
         val smalText: TextView = itemView.findViewById(R.id.smallTextAllNewsItem)
         val imagePr: ImageView = itemView.findViewById(R.id.imageView)
-        val seeMore: Button = itemView.findViewById(R.id.seeMore)
+        val item = itemView
         //var ConstraintLayout = itemView.findViewById<ConstraintLayout>(R.id.allnewitemconstwraintlayout)
 
     }
@@ -76,12 +76,12 @@ class AllNewsAdapter(private val posts: MutableList<GetAllPostsQuery.List>, priv
         holder.dateTextView.text = posts[position].date.subSequence(3, 15)
         holder.smalText.text = posts[position].shortText
 
-        holder.seeMore.setOnClickListener {
+
+        holder.item.setOnClickListener {
             val myDialogFragment = FullPost(posts[position])
             val manager = (context as FragmentActivity).supportFragmentManager
             myDialogFragment.show(manager, "myDialog")
         }
-
 
         if (posts[position].images?.isNotEmpty() == true) {
             println(posts[position].images)

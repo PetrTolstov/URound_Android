@@ -7,7 +7,7 @@
 
     <group>
         <path
-            android:fillColor="#A3B2FE"
-            android:pathData="M 30 0 L 180 0 Q 210 0 210 30 L 210 180 Q 210 210 180 210 L 30 210 Q 0 210 0 180 L 0 30 Q 0 0 30 0 Z" />/>
+            android:fillColor="@color/gradient_back"
+            android:pathData="M 30 0 L 180 0 Q 210 0 210 30 L 210 180 Q 210 210 180 210 L 30 210 Q 0 210 0 180 L 0 30 Q 0 0 30 0 Z" />
     </group>
 </vector>

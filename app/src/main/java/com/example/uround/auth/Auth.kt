@@ -29,7 +29,7 @@ class Auth : AppCompatActivity() {
     private lateinit var passwordInput : EditText
     private lateinit var loginBut : Button
     private lateinit var logo  : ImageView
-    private lateinit var progressBar : ProgressBar
+
     private lateinit var toRegistrBut : Button
 
 
@@ -48,7 +48,7 @@ class Auth : AppCompatActivity() {
         passwordInput = binding.passwordEditText
         loginBut = binding.loginBut
         logo = binding.logoImageView
-        progressBar = binding.progressBar
+
         toRegistrBut = binding.toRegistrBut
         toInvisible()
 
@@ -220,7 +220,7 @@ class Auth : AppCompatActivity() {
         toRegistrBut.visibility = View.VISIBLE
 
         logo.visibility = View.GONE
-        progressBar.visibility = View.GONE
+
     }
 
     fun toInvisible(){
@@ -230,6 +230,6 @@ class Auth : AppCompatActivity() {
         toRegistrBut.visibility = View.INVISIBLE
 
         logo.visibility = View.VISIBLE
-        progressBar.visibility = View.VISIBLE
+
     }
 }

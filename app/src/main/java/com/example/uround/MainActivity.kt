@@ -1,6 +1,9 @@
 package com.example.uround
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,6 +31,20 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.supportActionBar!!.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        val actionBar: ActionBar? = supportActionBar
+        val colorDrawable =  ColorDrawable(Color.parseColor("#FFFFFF"));
+        if (actionBar != null) {
+            actionBar.setCustomView(R.layout.custom_action_bar)
+            actionBar.setBackgroundDrawable(colorDrawable)
+        }
+
+        //getSupportActionBar().setElevation(0);
+        //getSupportActionBar().setElevation(0);
+        val view = supportActionBar!!.customView
+
 
         val b = intent.extras
         if (b != null) {

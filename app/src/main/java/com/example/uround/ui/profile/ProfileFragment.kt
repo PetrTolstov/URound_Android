@@ -56,6 +56,7 @@ class ProfileFragment : Fragment() {
             editor.commit()
 
             val msgIntent = Intent(activity, Auth::class.java)
+            activity?.finish()
             startActivity(msgIntent)
 
         }

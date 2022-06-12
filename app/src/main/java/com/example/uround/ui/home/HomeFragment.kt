@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -41,11 +42,22 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val namePage = activity?.findViewById<View>(R.id.namePage) as TextView
+        namePage.setText("Home")
+        /*
         val navView: BottomNavigationView = binding.navView
-
-        val navHostFragment = (activity as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val a = getParentFragmentManager()
+        val b = this@HomeFragment.activity?.supportFragmentManager
+        val navHostFragment = (activity as FragmentActivity).supportFragmentManager.findFragmentById(R.id.nav_host_fragment_categories) as NavHostFragment
         val navController = navHostFragment.navController
 
+
+        navView.setupWithNavController(navController)
+*/
+
+
+        val navView: BottomNavigationView = binding.navView
+        val navController = findNavController(root.findViewById(R.id.nav_host_fragment_categories))
 
         navView.setupWithNavController(navController)
 

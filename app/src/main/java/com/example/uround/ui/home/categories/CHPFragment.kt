@@ -36,7 +36,7 @@ class CHPFragment : Fragment() {
         _binding = FragmentChpBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        println("\n\n\\n\n\n\nn\n\n\n\n\n\n")
+        println("fjksgjkdfngkjdfngfkdj")
 
         return root
     }

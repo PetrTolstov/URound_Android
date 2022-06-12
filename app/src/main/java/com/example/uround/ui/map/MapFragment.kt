@@ -1,5 +1,6 @@
 package com.example.uround.ui.map
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.example.uround.databinding.FragmentMapBinding
 import androidx.appcompat.app.AppCompatActivity
 
 import androidx.fragment.app.FragmentActivity
+import com.example.uround.MainActivity
 import com.example.uround.R
 import com.google.android.gms.maps.*
 
@@ -42,6 +44,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val namePage = activity?.findViewById<View>(R.id.namePage) as TextView
+        namePage.setText("Map")
 
         //val mapFragment = (activity as FragmentActivity).supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -99,6 +104,18 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.position, 15F));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14F), 2000, null);
 
+
+
+
+        val b = Bundle()
+        //b.putString("id", response.userInfo!!._id)
+        b.putString("id", marker.tag as? String)
+
+        val msgIntent = Intent(context, EventPage::class.java)
+
+        msgIntent.putExtras(b)
+        msgIntent.putExtra(EventPage.DATA_L, b)
+        startActivity(msgIntent)
 
         // Check if a click count was set, then display the click count.
         clickCount?.let {

@@ -16,7 +16,7 @@
             android:contentDescription="TODO" />
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/namePage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

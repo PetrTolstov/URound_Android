@@ -28,8 +28,10 @@
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment__all_news.xml" value="0.2" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_allnews.xml" value="0.2" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_event_page.xml" value="0.26268115942028986" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_home.xml" value="0.3138020833333333" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_ida_virumaa.xml" value="0.1359375" />
+        <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_idavirumaa.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_map.xml" value="0.264" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_messages.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />
@@ -37,7 +39,7 @@
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/fragment_tallinn.xml" value="0.13125" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/registr.xml" value="0.264" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/layout/test.xml" value="0.4" />
-        <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
+        <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/menu/categories_menu.xml" value="0.4" />
         <entry key="..\:/Users/petrt/AndroidStudioProjects/URound/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.144" />
       </map>

@@ -46,6 +46,7 @@ class AllNewsFragment : Fragment() {
         _binding = FragmentAllnewsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        /*
         GlobalScope.launch{
             while (true){
                 try {
@@ -60,6 +61,8 @@ class AllNewsFragment : Fragment() {
 
 
         }
+
+         */
         return root
     }
 

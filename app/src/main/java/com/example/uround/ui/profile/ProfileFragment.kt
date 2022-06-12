@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.uround.MainActivity
+import com.example.uround.R
 import com.example.uround.auth.Auth
 import com.example.uround.databinding.FragmentProfileBinding
 
@@ -35,6 +36,9 @@ class ProfileFragment : Fragment() {
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val namePage = activity?.findViewById<View>(R.id.namePage) as TextView
+        namePage.setText("Profile")
 
         val sps: SharedPreferences = requireActivity().getSharedPreferences("login", AppCompatActivity.MODE_PRIVATE)
 

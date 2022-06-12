@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.uround.R
 import com.example.uround.databinding.FragmentMessagesBinding
 
 
@@ -31,6 +32,9 @@ class MessagesFragment : Fragment() {
 
         _binding = FragmentMessagesBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val namePage = activity?.findViewById<View>(R.id.namePage) as TextView
+        namePage.setText("Messages")
 
         val textView: TextView = binding.textMessages
         dashboardViewModel.text.observe(viewLifecycleOwner) {
